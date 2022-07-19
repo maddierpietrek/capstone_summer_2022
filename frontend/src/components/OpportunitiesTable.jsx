@@ -17,6 +17,7 @@ const opportunitiesTable = ({ opportunities }) => {
           return (
             <tr key={op.id}>
               <td style={{ padding: "24px" }}>{op.clientName}</td>
+              <td style={{ padding: "24px" }}>{op.clientName}</td>
               <td style={{ padding: "24px" }}>{op.productType}</td>
               <td style={{ padding: "24px" }}>{op.stage}</td>
               <td style={{ padding: "24px" }}>{op.salesStage}</td>
