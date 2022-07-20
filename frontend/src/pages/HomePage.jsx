@@ -13,7 +13,10 @@ import { retrieveSummary1 } from "../store/summary1Slice";
 import { retrieveSummary2 } from "../store/summary2Slice";
 import { retrieveClient } from "../store/clientSlice";
 import { retrieveProfile } from "../store/profileSlice";
-import { retrieveOpportunities } from "../store/opportunitiesSlice";
+import {
+  retrieveOpportunities,
+  // retrieveOpportunitiesRevenue,
+} from "../store/opportunitiesSlice";
 
 const HomePage = () => {
   const dispatch = useAppDispatch();
@@ -29,9 +32,15 @@ const HomePage = () => {
   const opportunities = useAppSelector(
     (store) => store.opportunitiesStore.items
   );
+
+  // const opportunitiesRevenue = useAppSelector(
+  //   (store) => store.opportunitiesStore.revenue
+  // );
+
   const yearComparisons = useAppSelector(
     (store) => store.opportunitiesStore.yearComparisons
   );
+  const years = useAppSelector((store) => store.opportunitiesStore.years);
 
   useEffect(() => {
     dispatch(retrieveProfile());
@@ -39,6 +48,7 @@ const HomePage = () => {
     dispatch(retrieveSummary1());
     dispatch(retrieveSummary2());
     dispatch(retrieveOpportunities());
+    // dispatch(retrieveOpportunitiesRevenue());
   }, [dispatch]);
 
   return (
@@ -66,7 +76,7 @@ const HomePage = () => {
         </Col>
       </Row>
       <Row style={{ padding: "0 12px" }}>
-        <BarChart data={yearComparisons} />
+        <BarChart data={yearComparisons} years={years} />
         <OpportunitiesTable opportunities={opportunities} />
       </Row>
     </Container>

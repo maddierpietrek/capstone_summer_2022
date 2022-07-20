@@ -9,35 +9,9 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const tempData = [
-  {
-    name: "Stage 1",
-    year1: 4000,
-    year2: 2400,
-  },
-  {
-    name: "Stage 2",
-    year1: 3000,
-    year2: 1398,
-  },
-  {
-    name: "Stage 3",
-    year1: 2000,
-    year2: 9800,
-  },
-  {
-    name: "Stage 4",
-    year1: 2780,
-    year2: 3908,
-  },
-  {
-    name: "Booked YTD",
-    year1: 1890,
-    year2: 4800,
-  },
-];
+const barColors = ["#1f77b4", "#ff7f0e", "#2ca02c"];
 
-const barchart = ({ data }) => {
+const barchart = ({ data, years }) => {
   return (
     <div
       style={{
@@ -47,10 +21,12 @@ const barchart = ({ data }) => {
         padding: "24px",
       }}
     >
-      <h5>Current vs Same Time Last Year</h5>
+      <h5 style={{ textAlign: "center", fontWeight: "bold" }}>
+        Opportunities by Stage
+      </h5>
       <ResponsiveContainer width="100%" height="100%">
         <BarChart
-          data={tempData}
+          data={data}
           margin={{
             top: 5,
             right: 30,
@@ -59,12 +35,13 @@ const barchart = ({ data }) => {
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
+          <XAxis dataKey="stage" />
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="year1" fill="#8884d8" />
-          <Bar dataKey="year2" fill="#82ca9d" />
+          {years.map((year, index) => {
+            return <Bar key={year} dataKey={year} fill={barColors[index]} />;
+          })}
         </BarChart>
       </ResponsiveContainer>
     </div>
