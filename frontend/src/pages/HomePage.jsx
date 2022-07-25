@@ -17,6 +17,9 @@ import {
   retrieveOpportunities,
   // retrieveOpportunitiesRevenue,
 } from "../store/opportunitiesSlice";
+import InsMetrics from "../components/InsMetrics";
+import InsColumnChart from "../components/InsColumnChart";
+import InsBarChart from "../components/InsBarChart";
 
 const HomePage = () => {
   const dispatch = useAppDispatch();
@@ -32,15 +35,6 @@ const HomePage = () => {
   const opportunities = useAppSelector(
     (store) => store.opportunitiesStore.items
   );
-
-  // const opportunitiesRevenue = useAppSelector(
-  //   (store) => store.opportunitiesStore.revenue
-  // );
-
-  const yearComparisons = useAppSelector(
-    (store) => store.opportunitiesStore.yearComparisons
-  );
-  const years = useAppSelector((store) => store.opportunitiesStore.years);
 
   useEffect(() => {
     dispatch(retrieveProfile());
@@ -59,7 +53,7 @@ const HomePage = () => {
         padding: "24px",
       }}
     >
-      <Row>
+      <Row style={{ padding: "0 12px", paddingBottom: "24px" }}>
         <Col md={12} lg={3}>
           {profile.loading && <InsSpinner />}
           {!profile.loading && <InsProfile profile={profile} />}
@@ -75,8 +69,11 @@ const HomePage = () => {
           {!summary2.loading && <InsSummary summary={summary2} />}
         </Col>
       </Row>
-      <Row style={{ padding: "0 12px" }}>
-        <BarChart data={yearComparisons} years={years} />
+      <Row style={{ padding: "0 12px", paddingBottom: "24px" }}>
+        <InsMetrics />
+      </Row>
+      <Row style={{ padding: "0 12px", paddingBottom: "24px" }}>
+        <InsColumnChart />
         <OpportunitiesTable opportunities={opportunities} />
       </Row>
     </Container>
@@ -121,3 +118,11 @@ export default HomePage;
 // 6. Add spinners for each component in HomePage
 // 7. Extra Credit: Move InsSpinner into individual components
 // 8. Extra Credit: Reseach adding db.json sample data into Django app (not manually)
+
+// todos 7/25/2022
+// 1. Style ClientInfo and SummaryInfo components to match Profile component
+// ** 2. Add sample data matching mockup to Djando DB
+// 3. Create methods to format SummaryInfo components following formatting rules in design document.
+// 4. Add labels for K in Behavior Metrics
+// 5. Check design document for displaying certain bars in red color
+// 6. Remove OpportunitiesRevenue Django "stuff"

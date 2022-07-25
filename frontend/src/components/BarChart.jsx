@@ -9,7 +9,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const barColors = ["#1f77b4", "#ff7f0e", "#2ca02c"];
+const barColors = ["#99ccff", "#3366cc", "#002b80"];
 
 const barchart = ({ data, years }) => {
   return (

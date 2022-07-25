@@ -36,3 +36,7 @@
     transform: rotate(360deg);
   }
 }
+
+.react-bs-table-container table {
+  margin-bottom: 0 !important;
+}
