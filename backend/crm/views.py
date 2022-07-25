@@ -5,8 +5,10 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
-from .serializers import ProfileSerializer, ClientSerializer, Summary1Serializer, Summary2Serializer, OutcomeMetricsSerializer, BehaviorMetricsSerializer, OpportunitiesSerializer
+from .serializers import ProfileSerializer, OpportunitiesRevenueSerializer, ClientSerializer, Summary1Serializer, Summary2Serializer, OutcomeMetricsSerializer, BehaviorMetricsSerializer, OpportunitiesSerializer
 from .models import Profile, Client, Summary1, Summary2, OutcomeMetrics, BehaviorMetrics, Opportunities
+from django.db.models import Sum
+import json
 
 
 # Create your views here.
@@ -70,6 +72,21 @@ def behavior_metrics_info(request, pk):
 def opportunities_list(request):
     if request.method == 'GET':
         opportunities = Opportunities.objects.all()
-
+        
         opportunity_serializer = OpportunitiesSerializer(opportunities, many=True)
         return JsonResponse(opportunity_serializer.data, safe=False)
+
+@api_view(['GET'])
+def opportunities_revenue(request):
+    if request.method == 'GET':
+        # opportunities = Opportunities.objects.values('stage', 'year').order_by('stage').annotate(total_revenue = Sum('revenue'))
+        opportunities = [{'stage': 'Stage 1', 'year': 2021, 'total_revenue': 4.81}, {'stage': 'Stage 1', 'year': 2022, 'total_revenue': 4.81}, {'stage': 'Stage 2', 'year': 2021, 'total_revenue': 5.67}, {'stage': 'Stage 4', 'year': 2021, 'total_revenue': 3.78}, {'stage': 'Stage 4', 'year': 2022, 'total_revenue': 3.78}]
+        print(list(opportunities))
+        opportunities_revenues = { opportunity['stage']:[] for opportunity in list(opportunities) }
+        for opportunity in list(opportunities):
+            opportunities_revenues.get(opportunity['stage']).append({'year':opportunity['year'], 'total_revenue':opportunity['total_revenue']})
+        print(list(opportunities_revenues))
+
+
+        opportunities_revenue_serializer = OpportunitiesRevenueSerializer(opportunities_revenue, many=True)
+        return JsonResponse(opportunities_revenue_serializer.data, safe=False)

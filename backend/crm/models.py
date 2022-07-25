@@ -55,6 +55,12 @@ class Opportunities(models.Model):
     sales_stage = models.CharField(max_length=200)
     revenue = models.FloatField(blank=False, default=0)
     date_closed = models.DateField(blank=True, null=True)
+    year = models.IntegerField(blank=False, default=0)
 
     def __str__(self):
         return self.client_name
+
+class OpportunitiesRevenue(models.Model):
+    total_revenue = models.FloatField(blank=False, default=0)
+    stage = models.CharField(max_length=200, default="Stage 1")
+    year = models.IntegerField(blank=False, default=0)

@@ -33,4 +33,5 @@ urlpatterns = [
     re_path(r'^api/outcome/(?P<pk>[0-9]+)$', views.outcome_metrics_info),
     re_path(r'^api/behavior/(?P<pk>[0-9]+)$', views.behavior_metrics_info),
     re_path(r'^api/opportunities/$', views.opportunities_list),
+    re_path(r'^api/opportunities/revenue$', views.opportunities_revenue),
 ]

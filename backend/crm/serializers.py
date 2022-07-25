@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Profile, Client, Summary1, Summary2, OutcomeMetrics, BehaviorMetrics, Opportunities
+from .models import OpportunitiesRevenue, Profile, Client, Summary1, Summary2, OutcomeMetrics, BehaviorMetrics, Opportunities
 
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
@@ -34,4 +34,9 @@ class BehaviorMetricsSerializer(serializers.ModelSerializer):
 class OpportunitiesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Opportunities
-        fields = ('id', 'client_name', 'product_type', 'stage', 'sales_stage', 'revenue', 'date_closed')
+        fields = ('id', 'client_name', 'product_type', 'stage', 'sales_stage', 'revenue', 'date_closed', 'year')
+
+class OpportunitiesRevenueSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OpportunitiesRevenue
+        fields = ('stage', 'total_revenue', 'year')
